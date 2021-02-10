@@ -47,6 +47,7 @@ public class Sprite extends Rect {
     }
 
     public boolean touchDown(Vector2 touch, int pointer, int button) {
+        System.out.println("Sprite touchX " + touch.x + " touchY " + touch.y);
         return false;
     }
 
