@@ -7,8 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 import ru.geekbrains.base.Ship;
 import ru.geekbrains.math.Rect;
 import ru.geekbrains.pool.BulletPool;
+import ru.geekbrains.utils.EnemyMovement;
 
 public class EnemyShip extends Ship {
+    private EnemyMovement movement;
 
     public EnemyShip(BulletPool bulletPool, Rect worldBounds, Sound sound) {
         this.bulletPool = bulletPool;
@@ -16,6 +18,7 @@ public class EnemyShip extends Ship {
         this.sound = sound;
         v = new Vector2();
         v0 = new Vector2();
+        movement = new EnemyMovement(v0, v, pos,0.4f, worldBounds);
         bulletPos = new Vector2();
         bulletV = new Vector2();
     }
@@ -23,6 +26,7 @@ public class EnemyShip extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
+        movement.next();
         bulletPos.set(pos.x, pos.y - getHalfHeight());
         if (getBottom() < worldBounds.getBottom()) {
             destroy();
@@ -42,6 +46,7 @@ public class EnemyShip extends Ship {
     ) {
         this.regions = regions;
         this.v.set(v0);
+        this.v0.set(v0);
         this.bulletRegion = bulletRegion;
         this.bulletHeight = bulletHeight;
         this.bulletV.set(bulletV);
