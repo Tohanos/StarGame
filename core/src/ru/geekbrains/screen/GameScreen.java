@@ -18,6 +18,7 @@ import ru.geekbrains.pool.ExplosionPool;
 import ru.geekbrains.sprite.Background;
 import ru.geekbrains.sprite.Bullet;
 import ru.geekbrains.sprite.EnemyShip;
+import ru.geekbrains.sprite.GameOver;
 import ru.geekbrains.sprite.MainShip;
 import ru.geekbrains.sprite.Star;
 import ru.geekbrains.utils.EnemyEmitter;
@@ -31,6 +32,7 @@ public class GameScreen extends BaseScreen {
 
     private Background background;
     private Star[] stars;
+    private GameOver gameOver;
 
     private BulletPool bulletPool;
     private ExplosionPool explosionPool;
@@ -44,6 +46,8 @@ public class GameScreen extends BaseScreen {
 
     private EnemyEmitter enemyEmitter;
 
+    private int gameState;
+
     @Override
     public void show() {
         super.show();
@@ -51,6 +55,7 @@ public class GameScreen extends BaseScreen {
         atlas = new TextureAtlas(Gdx.files.internal("textures/mainAtlas.tpack"));
         background = new Background(bg);
         stars = new Star[STAR_COUNT];
+        gameOver = new GameOver(atlas);
         for (int i = 0; i < STAR_COUNT; i++) {
             stars[i] = new Star(atlas);
         }
@@ -66,6 +71,7 @@ public class GameScreen extends BaseScreen {
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
         music.setLooping(true);
         music.play();
+        gameState = 1;
     }
 
     @Override
@@ -83,6 +89,7 @@ public class GameScreen extends BaseScreen {
             star.resize(worldBounds);
         }
         mainShip.resize(worldBounds);
+        gameOver.resize(worldBounds);
     }
 
     @Override
@@ -127,11 +134,24 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.update(delta);
         }
-        mainShip.update(delta);
-        bulletPool.updateActiveSprites(delta);
-        explosionPool.updateActiveSprites(delta);
-        enemyPool.updateActiveSprites(delta);
-        enemyEmitter.generate(delta);
+        switch(gameState) {
+            case 0:
+                break;
+            case 1:
+                mainShip.update(delta);
+                bulletPool.updateActiveSprites(delta);
+                explosionPool.updateActiveSprites(delta);
+                enemyPool.updateActiveSprites(delta);
+                enemyEmitter.generate(delta);
+                break;
+            case 2:
+                bulletPool.updateActiveSprites(delta);
+                explosionPool.updateActiveSprites(delta);
+                enemyPool.updateActiveSprites(delta);
+                gameOver.update(delta);
+                break;
+        }
+
     }
 
     private void checkCollisions() {
@@ -152,9 +172,12 @@ public class GameScreen extends BaseScreen {
                 continue;
             }
             if (bullet.getOwner() != mainShip) {
-                if (mainShip.isBulletCollision(bullet)) {
+                if ((mainShip.isBulletCollision(bullet)) && !mainShip.isDestroyed()) {
                     mainShip.damage(bullet.getDamage());
                     bullet.destroy();
+                }
+                if (mainShip.isDestroyed()) {
+                    gameState = 2;
                 }
                 continue;
             }
@@ -181,10 +204,23 @@ public class GameScreen extends BaseScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
+
         for (Star star : stars) {
             star.draw(batch);
         }
-        mainShip.draw(batch);
+
+        switch (gameState) {
+            case 0:
+                break;
+            case 1:
+                mainShip.draw(batch);
+                break;
+            case 2:
+                gameOver.draw(batch);
+                break;
+
+        }
+
         bulletPool.drawActiveSprites(batch);
         explosionPool.drawActiveSprites(batch);
         enemyPool.drawActiveSprites(batch);
