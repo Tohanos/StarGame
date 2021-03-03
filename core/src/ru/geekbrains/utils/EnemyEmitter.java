@@ -35,6 +35,9 @@ public class EnemyEmitter {
     private final Vector2 enemySmallV = new Vector2(0, -0.2f);
     private final Vector2 enemyMediumV = new Vector2(0, -0.03f);
     private final Vector2 enemyBigV = new Vector2(0, -0.005f);
+    private final Vector2 enemySmallVMod = new Vector2(0.06f, 0);
+    private final Vector2 enemyMediumVMod = new Vector2(0.04f, 0);
+    private final Vector2 enemyBigVMod = new Vector2(-0.03f, 0);
 
     private TextureRegion[] enemySmallRegions;
     private TextureRegion[] enemyMediumRegions;
@@ -71,37 +74,43 @@ public class EnemyEmitter {
                 enemyShip.set(
                         enemySmallRegions,
                         enemySmallV,
+                        enemySmallVMod,
                         bulletRegion,
                         ENEMY_SMALL_BULLET_HEIGHT,
                         enemySmallBulletV,
                         ENEMY_SMALL_BULLET_DAMAGE * level,
                         ENEMY_SMALL_RELOAD_INTERVAL,
                         ENEMY_SMALL_HEIGHT,
-                        ENEMY_SMALL_HP
+                        ENEMY_SMALL_HP,
+                        EnemyMovementType.APPEARING
                 );
             } else if (enemyType < 0.8f) {
                 enemyShip.set(
                         enemyMediumRegions,
                         enemyMediumV,
+                        enemyMediumVMod,
                         bulletRegion,
                         ENEMY_MEDIUM_BULLET_HEIGHT,
                         enemyMediumBulletV,
                         ENEMY_MEDIUM_BULLET_DAMAGE * level,
                         ENEMY_MEDIUM_RELOAD_INTERVAL,
                         ENEMY_MEDIUM_HEIGHT,
-                        ENEMY_MEDIUM_HP
+                        ENEMY_MEDIUM_HP,
+                        EnemyMovementType.APPEARING
                 );
             } else {
                 enemyShip.set(
                         enemyBigRegions,
                         enemyBigV,
+                        enemyBigVMod,
                         bulletRegion,
                         ENEMY_BIG_BULLET_HEIGHT,
                         enemyBigBulletV,
                         ENEMY_BIG_BULLET_DAMAGE * level,
                         ENEMY_BIG_RELOAD_INTERVAL,
                         ENEMY_BIG_HEIGHT,
-                        ENEMY_BIG_HP
+                        ENEMY_BIG_HP,
+                        EnemyMovementType.APPEARING
                 );
             }
             enemyShip.pos.x = Rnd.nextFloat(

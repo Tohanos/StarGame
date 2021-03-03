@@ -95,7 +95,7 @@ public class GameScreen extends BaseScreen {
 
         enemyEmitter = new EnemyEmitter(atlas, worldBounds, enemyPool);
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/gameTheme.mp3"));
         music.setLooping(true);
         music.play();
         state = State.PLAYING;
