@@ -1,0 +1,35 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="menuTheme_data" version="1.3.0" audacityversion="2.1.3" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="9.3701494273" zoom="5810.4729729730" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="menuTheme" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="423272">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000dd2.au" len="259970" min="-1.066093" max="1.066067" rms="0.216063"/>
+				</waveblock>
+				<waveblock start="259970">
+					<simpleblockfile filename="e00006dd.au" len="163302" min="-1.893527" max="1.584927" rms="0.236337"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="1">
+				<controlpoint t="0.000000000000" val="1.000000000000"/>
+			</envelope>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="menuTheme" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="423272">
+				<waveblock start="0">
+					<simpleblockfile filename="e00003dc.au" len="259970" min="-0.988081" max="0.964123" rms="0.204489"/>
+				</waveblock>
+				<waveblock start="259970">
+					<simpleblockfile filename="e0000d4e.au" len="163302" min="-1.51956" max="1.392949" rms="0.228372"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="1">
+				<controlpoint t="0.000000000000" val="1.000000000000"/>
+			</envelope>
+		</waveclip>
+	</wavetrack>
+</project>
